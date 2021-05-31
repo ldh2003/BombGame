@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enermy : MonoBehaviour
 {
+    private bool scored = false;
     public Transform target;
     private Rigidbody rig;
     public float speed = 20f;
@@ -20,4 +21,15 @@ public class Enermy : MonoBehaviour
             rig.AddForce(tran * speed * Time.deltaTime); 
         }
     }
+    private void OnTriggerEnter(Collider other)
+    { 
+        if (other.tag == "Bullet" && scored == false)
+        { 
+            scored = true;
+            GameManager.instance.AddScore(1);
+            transform.position = new Vector3(Random.Range(-30, 30), 0.5f, Random.Range(-30, 30));
+            scored = false; 
+        } 
+    }
+
 }
